@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "b22623f78c5240b8d832febd535f9c693011193ce82cd989f81331a257778761"
+            "sha256": "dc847f8f182ead85b9221217def8d0eb87e46e80ac0e7150010d4f03c3ef5075"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -53,10 +53,10 @@
         },
         "certifi": {
             "hashes": [
-                "sha256:b0e07438175de96ab74de9ab5dc40985ef8b44a41e9636a2000099dc3b670ddd",
-                "sha256:e68768546aa055623812ada64aec5e1f02ca20a9e7f3d3432dd8b0f35a6e7951"
+                "sha256:1d987a998c75633c40847cc966fcf5904906c920a7f17ef374f5aa4282abd304",
+                "sha256:51fcb31174be6e6664c5f69e3e1691a2d72a1a12e90f872cbdb1567eb47b6519"
             ],
-            "version": "==2020.4.5"
+            "version": "==2020.4.5.1"
         },
         "cffi": {
             "hashes": [
@@ -351,17 +351,17 @@
         },
         "maxminddb": {
             "hashes": [
-                "sha256:585905793aab72b0462b06205459089358a0ee6f47c426097e6431356d31eb4a"
+                "sha256:d0ce131d901eb11669996b49a59f410efd3da2c6dbe2c0094fe2fef8d85b6336"
             ],
             "index": "pypi",
-            "version": "==1.2.3"
+            "version": "==1.5.2"
         },
         "maxminddb-geolite2": {
             "hashes": [
-                "sha256:92283ee9831db7c45856767fe4425b436e11a37bfd50ddfa0dd3ed7404469ca1"
+                "sha256:2bd118c5567f3a8323d6c5da23a6e6d52cfc09cd9987b54eb712cf6001a96e03"
             ],
             "index": "pypi",
-            "version": "==2015.708"
+            "version": "==2018.703"
         },
         "mccabe": {
             "hashes": [
