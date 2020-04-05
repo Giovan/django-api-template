@@ -45,6 +45,17 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+# External apps that need to go before django's
+    'storages',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'social_django',
+    'django_prices',
+    'pyqrcode',
+    'django_countries',
+    'corsheaders',
+    'pgcrypto',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
