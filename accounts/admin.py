@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import (User, SingleQrCode, Session,
+UserSignup, UserLogin, Newsletter, Blacklist)
+
+admin.site.register([User, SingleQrCode, Session,
+UserSignup, UserLogin, Newsletter, Blacklist])
