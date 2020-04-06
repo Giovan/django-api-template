@@ -1,0 +1,96 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        STATIC_URL: '/static/'
+    container_name: api_container
+    ports:
+      - "9999:9090"
+    environment:
+      - DOCKER_CONTAINER=True
+# System Keys      
+      - DEFAULT_FROM_EMAIL=noreply@api.com
+      - DEBUG=${DEBUG}
+      - SECRET_KEY=${SECRET_KEY}
+# AWS Keys
+      - AWS_S3_QR_CODES_BUCKET=${AWS_S3_QR_CODES_BUCKET}
+      - AWS_ACCESS_KEY=${AWS_ACCESS_KEY}
+      - AWS_SECRET_KEY=${AWS_SECRET_KEY}
+# Postgres DBs
+# Main DB
+      - DB_HOST=${DB_HOST}
+      - DATABASE=${DATABASE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+# Mirror DB
+      - HOST_MIRROR=${HOST_MIRROR}
+      - DATABASE_MIRROR=${DATABASE_MIRROR}
+      - USER_MIRROR=${USER_MIRROR}
+      - PASSWORD_MIRROR=${PASSWORD_MIRROR}
+      - PORT_MIRROR=${PORT_MIRROR}
+# Mongo DBs
+# Auth Logs Mongodb
+      - HOST_MONGO=${HOST_MONGO}
+      - NAME_MONGO=${NAME_MONGO}
+      - USER_MONGO=${USER_MONGO}
+      - PASS_MONGO=${PASS_MONGO}
+# API logger Mongodb
+      - HOST_MONGO_LOGS=${HOST_MONGO_LOGS}
+      - NAME_MONGO_LOGS=${NAME_MONGO_LOGS}
+      - USER_MONGO_LOGS=${USER_MONGO_LOGS}
+      - PASS_MONGO_LOGS=${PASS_MONGO_LOGS}
+# Third-party vars
+      - SENDGRID_API_KEY=${SENDGRID_API_KEY}
+      - PGCRYPTO_KEY=${PGCRYPTO_KEY}
+      - SENTRY_DSN=${SENTRY_DSN}
+    volumes:
+      - ./:/app
+    command: >
+      sh -c "python3 manage.py makemigrations &&
+          python3 manage.py migrate &&
+          python3 manage.py loaddata dbengines &&
+          python3 manage.py loaddata techs &&
+          python3 manage.py runserver 0.0.0.0:9090"
+    depends_on:
+      - db
+      - db-mirror
+      - mongodb
+  db:
+    image: postgres:10-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${DATABASE}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+  db-mirror:
+    image: postgres:10-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_DB_MIRROR=${DATABASE_MIRROR}
+      - POSTGRES_USER_DB_MIRROR=${USER_MIRROR}
+      - POSTGRES_PASSWORD_DB_MIRROR=${PASSWORD_MIRROR}
+  redis:
+    image: redis
+    ports:
+      - '127.0.0.1:6379:6379'
+  # mongodb:
+    # image: mongo:latest
+    # container_name: mongodb_api
+    # environment:
+    #  - MONGO_DATA_DIR=/data/db
+    #  - MONGO_LOG_DIR=/dev/null
+    #  - MONGODB_USER=${USER_MONGO}
+    #  - MONGODB_PASS=${PASS_MONGO}
+    # volumes:
+    #  - ./data/db:/data/db
+    # ports:
+    #    - 27017:27017
+    # command: mongod --logpath=/dev/null # --quiet
+volumes:
+  data-volume:
