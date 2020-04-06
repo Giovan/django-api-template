@@ -15,7 +15,7 @@ urlpatterns = [
 # Django admin routes
     path('admin/', admin.site.urls),   
 # Auth routes
-# path('auth/', include('accounts.auth_urls')),
+    path('auth/', include('accounts.auth_urls')),
     path('api-token-refresh/', refresh_jwt_token, name='refresh-token'),
     path('api-token-verify/', verify_jwt_token, name='verify-token'),
 ]
